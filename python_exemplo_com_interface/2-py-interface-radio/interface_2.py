@@ -27,31 +27,78 @@ def atualizar_resultado():
     cor_favorita = combo_cor.get()
 
     # Montar mensagem final
-    mensagem = f"{saudacao} {nome}! Você prefere {preferencia}."
+    mensagem = f"{saudacao} {nome}! \nVocê prefere {preferencia}. "
     if cor_favorita:
-        mensagem += f" Sua cor favorita é {cor_favorita}."
-    
-    # Atualizar o texto do rótulo de mensagem
+        mensagem += f" Sua cor favorita é {cor_favorita}. "
 
+    # Atualizar o texto do rótulo de mensagem
     label_resultado.config(text=mensagem)
 
-# criar a janela principal
+def limpar_campos():
+    caixa_texto.delete(0, tk.END)
+    var_radio.set("Café")  # Resetar para valor padrão
+    var_check_saudacao.set(False)
+    var_check_personalizada.set(False)
+    combo_cor.set("")
+    label_resultado.config(text="")
+    
+
+# Criando a janela principal
 janela = tk.Tk()
 janela.title("Exemplo de Interface")
-janela.geometry("400x150")
-janela.config(bg='red') # cor de fundo da janela
+janela.geometry("400x500")
 
-
-# ================================================================================
-# criar uma caixa de entrada (entry), equivalente ao input do html
-label_nome = tk.Label(janela, text="Digite seu nome: ")
+# Criar uma caixa de entrada (Entry)
+label_nome = tk.Label(janela, text="Digite seu nome:")
 label_nome.pack(pady=5)
 caixa_texto = tk.Entry(janela, width=40)
 caixa_texto.pack(pady=5)
 
-# =================================================================================
-# executar a janela
-janela.mainloop
+# Criar botões de rádio para preferências
+label_preferencia = tk.Label(janela, text="Escolha sua preferência:")
+label_preferencia.pack(pady=5)
+
+var_radio = tk.StringVar(value="Café")  # Valor padrão
+radio_cafe = tk.Radiobutton(janela, text="Café", variable=var_radio, value="Café")
+radio_cha = tk.Radiobutton(janela, text="Chá", variable=var_radio, value="Chá")
+radio_suco = tk.Radiobutton(janela, text="Suco", variable=var_radio, value="Suco")
+radio_agua = tk.Radiobutton(janela, text="Àgua", variable=var_radio, value="Àgua")
+
+# Método do tinker que deixa as opções visíveis
+radio_cafe.pack()
+radio_cha.pack()
+radio_suco.pack()
+radio_agua.pack()
+
+# Criar caixas de seleção multipla (Checkbox)
+var_check_saudacao = tk.BooleanVar()
+check_saudacao = tk.Checkbutton(janela, text="Usar saudação informal", variable=var_check_saudacao)
+check_saudacao.pack(pady=5)
+
+var_check_personalizada = tk.BooleanVar()
+check_personalizada = tk.Checkbutton(janela, text="Usar saudação personalizada", variable=var_check_personalizada)
+check_personalizada.pack(pady=5)
+
+# Combobox para selecionar cor favorita
+label_cor = tk.Label(janela, text="Selecione sua cor favorita:")
+label_cor.pack(pady=5)
+combo_cor = ttk.Combobox(janela, values=["Vermelho", "Azul", "Verde", "Amarelo", "Roxo", "Branco", "Preto"])
+combo_cor.set("Selecione uma cor")  # Valor padrão
+combo_cor.pack(pady=5)
+
+# criar um botões (atualizar e limpar)
+botao_atualizar = tk.Button(janela, text="Atualizar", command=atualizar_resultado)
+botao_atualizar.pack(pady=10)
+
+botao_limpar = tk.Button(janela, text="Limpar", command=limpar_campos)
+botao_limpar.pack(pady=10)
+
+#Exibição do resultado final
+label_resultado = tk.Label(janela, text="", wraplength=300)
+label_resultado.pack(pady=10)
+
+# Executar a janela principal
+janela.mainloop()
 
     
 
