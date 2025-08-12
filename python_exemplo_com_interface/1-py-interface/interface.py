@@ -12,7 +12,7 @@ janela.title("Exemplo de interface")
 janela.geometry("400x150")
 
 # criar uma caixa de entrada 
-caixa_texto = tk.Entry(janela, width=60)
+caixa_texto = tk.Entry(janela, width=60, bg="", fg="", font=("Arial", 20))
 caixa_texto.pack(pady=10)
 
 # criar um botão 
